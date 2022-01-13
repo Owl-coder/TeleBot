@@ -1,3 +1,5 @@
+import os
+
 import dp as dp
 import telebot
 from telebot import types
@@ -264,7 +266,7 @@ if "HEROKU" in list(os.environ.keys()):
     @server.route("/")
     def webhook():
         bot.remove_webhook()
-        bot.set_webhook(url="https://min-gallows.herokuapp.com/bot") # этот url нужно заменить на url вашего Хероку приложения
+        bot.set_webhook(url="https://git.heroku.com/iamcowabot.git") # этот url нужно заменить на url вашего Хероку приложения
         return "?", 200
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
 else:
