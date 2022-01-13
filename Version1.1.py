@@ -1,7 +1,6 @@
 import dp as dp
 import telebot
 from telebot import types
-import time
 import sqlite3
 from random import randint
 from aiogram.types import ReplyKeyboardRemove, \
@@ -55,7 +54,6 @@ def start(message):
         bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
     else:
         bot.send_message(message.from_user.id, 'Напиши /start')
-        time.sleep(1)
 
 
 # @bot.message_handler(content_types=['text'])
