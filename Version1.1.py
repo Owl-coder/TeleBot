@@ -23,6 +23,7 @@ text_right = '''Правильный ответ'''
 text_wrong = '''Неправильный ответ
 Вопрос будет показан еще раз'''
 
+
 @bot.message_handler(commands=['help'])
 def help(message):
     text = '''Этот бот создан для изучения математических терминов на английском языке
@@ -46,6 +47,7 @@ def reset(message):
     text = '''данные о действиях сброшены'''
     bot.send_message(message.from_user.id, text=text, reply_markup=types.ReplyKeyboardRemove())
 
+
 @bot.message_handler(commands=['start'])
 def start(message):
     if message.text == '/start':
@@ -63,7 +65,6 @@ def start(message):
 # @bot.message_handler(content_types=['text'])
 
 
-
 def rand_zero_2():
     global word_list
     f = True
@@ -78,8 +79,10 @@ def rand_zero_2():
         ri = randint(0, len(word_list) - 1)
     return ri
 
+
 right_ans = []
 wrong_ans = []
+
 
 @bot.message_handler(commands=['train_words'])
 def dialogue_train_setting(message):
@@ -105,7 +108,8 @@ def dialogue_train_setting(message):
     keyboard.add(button_4)
     button_5 = types.KeyboardButton(text="/quit")
     keyboard.add(button_5)
-    txt = i[0] + '\n' + "ans1: " + str(i[1]) + '\n' + "ans2: " + str(i[2]) + '\n' + "ans3: " + str(i[3]) + '\n' + "ans4: " + str(i[4])
+    txt = i[0] + '\n' + "ans1: " + str(i[1]) + '\n' + "ans2: " + str(i[2]) + '\n' + "ans3: " + str(
+        i[3]) + '\n' + "ans4: " + str(i[4])
     bot.send_message(message.chat.id, text=txt, reply_markup=keyboard)
 
 
@@ -142,6 +146,7 @@ def func(message: types.Message):
         bot.send_message(message.chat.id, text=text_wrong)
         dialogue_train_setting(message)
 
+
 @bot.message_handler(commands=['ans3'])
 def func(message: types.Message):
     global word_list, index
@@ -176,15 +181,10 @@ def func(message: types.Message):
         dialogue_train_setting(message)
 
 
-
 @bot.message_handler(commands=['quit'])
 def quit(message: types.Message):
     bot.send_message(message.chat.id, text="Бот завершил работу, для возобновления наберите /start",
                      reply_markup=types.ReplyKeyboardRemove())
-
-
-
-
 
 
 word_list = []
@@ -252,22 +252,27 @@ def quit(message: types.Message):
                      reply_markup=types.ReplyKeyboardRemove())
 
 
-
-
 if "HEROKU" in list(os.environ.keys()):
     logger = telebot.logger
     telebot.logger.setLevel(logging.INFO)
 
     server = Flask(__name__)
+
+
     @server.route("/bot", methods=['POST'])
     def getMessage():
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
         return "!", 200
+
+
     @server.route("/")
     def webhook():
         bot.remove_webhook()
-        bot.set_webhook(url="https://git.heroku.com/iamcowabot.git") # этот url нужно заменить на url вашего Хероку приложения
+        bot.set_webhook(
+            url="https://git.heroku.com/iamcowabot.git")  # этот url нужно заменить на url вашего Хероку приложения
         return "?", 200
+
+
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
 else:
     # если переменной окружения HEROKU нету, значит это запуск с машины разработчика.

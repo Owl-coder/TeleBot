@@ -1,1 +1,1 @@
-worker: python Version1.1.py
+worker: python Version1.1.py $PORT
